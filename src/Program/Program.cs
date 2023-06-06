@@ -27,7 +27,7 @@ namespace Program
             Node nodoAbueloMaterno = new Node(abueloMaterno);
             Node nodoAbuelaMaterna = new Node(abuelaMaterna);
 
-
+            //Construcción del árbol genealógico
             nodoRaiz.AddChildren(nodoAbuelaPaterna);
             nodoRaiz.AddChildren(nodoAbueloMaterno);
             nodoAbuelaPaterna.AddChildren(nodoPadre);
@@ -40,7 +40,7 @@ namespace Program
             Console.WriteLine("Arbol Genealógico");
             PrintNode(nodoRaiz, 0);
 
-            //Imprimo la suma de las edades:
+            //Cálculo e imprimo la suma de las edades:
 
             AgeSumVisitor ageSumVisitor = new AgeSumVisitor();
             int sum = ageSumVisitor.CalcularAgeSum(nodoRaiz);
@@ -56,8 +56,10 @@ namespace Program
             LongestNameVisitor longestNameVisitor = new LongestNameVisitor();
             nodoRaiz.Accept(longestNameVisitor);
             string longestName = longestNameVisitor.GetLongestName();
-            Console.WriteLine($"El nombre más largo es: {longestName}");
+            Console.WriteLine($"El nombre más largo de la familia es: {longestName}");
         }
+
+        //Método recursivo para imprimir el árbol genealógico
         static void PrintNode(Node node, int depth)
         {
             string indent = new string(' ', depth * 4);
@@ -72,13 +74,16 @@ namespace Program
         {
             private int ageSum;
 
+            //Método para cálcular la edad de toda la familia
             public int CalcularAgeSum(Node rootNode)
             {
                 ageSum = 0;
-                rootNode.Accept(this);
+                rootNode.Accept(this); //Se invoca el método "Accept" en el nodo raiz para comenzar la visita.
                 return ageSum;
             }
-            
+
+            //Método visit se implemta de la interfaz IPersonVisitor y se usa para visitar un objetivo del tipo Person
+            //En este caso, se suma la edad de la persona actual a la variable ageSum
             public void Visit(Person person)
             {
                 ageSum += person.Edad;
