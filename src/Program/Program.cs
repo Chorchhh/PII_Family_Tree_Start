@@ -12,8 +12,8 @@ namespace Program
             Person abuelaPaterna = new Person("Pilar", 75);
             Person padre = new Person("César", 50);
             Person madre = new Person("Mónica", 45);
-            Person hijo1 = new Person("Jorge", 25);
-            Person hijo2 = new Person("Julieta", 30);
+            Person hijo1 = new Person("Jorge", 20);
+            Person hijo2 = new Person("Julieta", 15);
             Person abueloMaterno = new Person("Ernesto", 85);
             Person abuelaMaterna = new Person("Ondina", 80);
 
@@ -47,15 +47,15 @@ namespace Program
             Console.WriteLine($"Suma de las edades: {sum}");
 
             //Imprimo el hijo con mayor edad:
-            TamañoVisitor tamañoVisitor = new TamañoVisitor();
-            nodoRaiz.Accept(tamañoVisitor);
-            string biggestChild = tamañoVisitor.GetBiggestChild();
+            BiggestChildVisitor biggestChildVisitor = new BiggestChildVisitor();
+            nodoRaiz.Accept(biggestChildVisitor);
+            string biggestChild = biggestChildVisitor.GetBiggestChild();
             Console.WriteLine($"El hijo más grande es: {biggestChild}");
 
             //Imprimo el nombre mas largo de la familia:
-            NombreLargoVistor nombreLargoVisitor = new NombreLargoVistor();
-            nodoRaiz.Accept(nombreLargoVisitor);
-            string longestName = nombreLargoVisitor.GetLongestName();
+            LongestNameVisitor longestNameVisitor = new LongestNameVisitor();
+            nodoRaiz.Accept(longestNameVisitor);
+            string longestName = longestNameVisitor.GetLongestName();
             Console.WriteLine($"El nombre más largo es: {longestName}");
         }
         static void PrintNode(Node node, int depth)
