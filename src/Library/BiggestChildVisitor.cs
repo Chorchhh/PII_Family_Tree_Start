@@ -1,6 +1,6 @@
 namespace Library
 {
-    public class TamañoVisitor : IPersonVisitor
+    public class BiggestChildVisitor : IPersonVisitor
     {
         private int maxSize;
         private string biggestChild;

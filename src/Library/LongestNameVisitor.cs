@@ -1,6 +1,6 @@
 namespace Library
 {
-    public class NombreLargoVistor : IPersonVisitor
+    public class LongestNameVisitor : IPersonVisitor
     {
         private int maxLength;
         private string longestName;
