@@ -7,24 +7,86 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Node n1 = new Node(1);
-            Node n2 = new Node(2);
-            Node n3 = new Node(3);
-            Node n4 = new Node(4);
-            Node n5 = new Node(5);
-            Node n6 = new Node(6);
-            Node n7 = new Node(7);
+            //Creo la familia
+            Person abueloPaterno = new Person("Raúl", 80);
+            Person abuelaPaterna = new Person("Pilar", 75);
+            Person padre = new Person("César", 50);
+            Person madre = new Person("Mónica", 45);
+            Person hijo1 = new Person("Jorge", 25);
+            Person hijo2 = new Person("Julieta", 30);
+            Person abueloMaterno = new Person("Ernesto", 85);
+            Person abuelaMaterna = new Person("Ondina", 80);
 
-            n1.AddChildren(n2);
-            n1.AddChildren(n3);
+            // Creo nodos del árbol genealógico
+            Node nodoRaiz = new Node(abueloPaterno);
+            Node nodoAbuelaPaterna = new Node (abuelaPaterna);
+            Node nodoPadre = new Node(padre);
+            Node nodoMadre = new Node(madre);
+            Node nodoHijo1 = new Node(hijo1);
+            Node nodoHijo2 = new Node(hijo2);
+            Node nodoAbueloMaterno = new Node(abueloMaterno);
+            Node nodoAbuelaMaterna = new Node(abuelaMaterna);
 
-            n2.AddChildren(n4);
-            n2.AddChildren(n5);
 
-            n3.AddChildren(n6);
-            n3.AddChildren(n7);
+            nodoRaiz.AddChildren(nodoAbuelaPaterna);
+            nodoRaiz.AddChildren(nodoAbueloMaterno);
+            nodoAbuelaPaterna.AddChildren(nodoPadre);
+            nodoAbueloMaterno.AddChildren(nodoMadre);
+            nodoPadre.AddChildren(nodoHijo1);
+            nodoMadre.AddChildren(nodoHijo2);
 
-            // visitar el árbol aquí
+            //Imprimo árbol genealógico:
+
+            Console.WriteLine("Arbol Genealógico");
+            PrintNode(nodoRaiz, 0);
+
+            //Imprimo la suma de las edades:
+
+            AgeSumVisitor ageSumVisitor = new AgeSumVisitor();
+            int sum = ageSumVisitor.CalcularAgeSum(nodoRaiz);
+            Console.WriteLine($"Suma de las edades: {sum}");
+
+            //Imprimo el hijo con mayor edad:
+            TamañoVisitor tamañoVisitor = new TamañoVisitor();
+            nodoRaiz.Accept(tamañoVisitor);
+            string biggestChild = tamañoVisitor.GetBiggestChild();
+            Console.WriteLine($"El hijo más grande es: {biggestChild}");
+
+            //Imprimo el nombre mas largo de la familia:
+            NombreLargoVistor nombreLargoVisitor = new NombreLargoVistor();
+            nodoRaiz.Accept(nombreLargoVisitor);
+            string longestName = nombreLargoVisitor.GetLongestName();
+            Console.WriteLine($"El nombre más largo es: {longestName}");
+        }
+        static void PrintNode(Node node, int depth)
+        {
+            string indent = new string(' ', depth * 4);
+            Console.WriteLine($"{indent}- {node.Person.Nombre} (Edad: {node.Person.Edad})");
+
+            foreach (var child in node.Children)
+            {
+                PrintNode(child, depth + 1);
+            }
+        }
+        public class AgeSumVisitor : IPersonVisitor
+        {
+            private int ageSum;
+
+            public int CalcularAgeSum(Node rootNode)
+            {
+                ageSum = 0;
+                rootNode.Accept(this);
+                return ageSum;
+            }
+            
+            public void Visit(Person person)
+            {
+                ageSum += person.Edad;
+            }
+            public void Visit(Node node)
+            {
+
+            }
         }
     }
 }
