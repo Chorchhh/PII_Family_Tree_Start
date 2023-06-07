@@ -38,7 +38,7 @@ namespace Program
             //Imprimo árbol genealógico:
 
             Console.WriteLine("Arbol Genealógico");
-            PrintNode(nodoRaiz, 0);
+            TreePrinter.PrintNode(nodoRaiz, 0);
 
             //Cálculo e imprimo la suma de las edades:
 
@@ -60,38 +60,5 @@ namespace Program
         }
 
         //Método recursivo para imprimir el árbol genealógico
-        static void PrintNode(Node node, int depth)
-        {
-            string indent = new string(' ', depth * 4);
-            Console.WriteLine($"{indent}- {node.Person.Nombre} (Edad: {node.Person.Edad})");
-
-            foreach (var child in node.Children)
-            {
-                PrintNode(child, depth + 1);
-            }
-        }
-        public class AgeSumVisitor : IPersonVisitor
-        {
-            private int ageSum;
-
-            //Método para cálcular la edad de toda la familia
-            public int CalcularAgeSum(Node rootNode)
-            {
-                ageSum = 0;
-                rootNode.Accept(this); //Se invoca el método "Accept" en el nodo raiz para comenzar la visita.
-                return ageSum;
-            }
-
-            //Método visit se implemta de la interfaz IPersonVisitor y se usa para visitar un objetivo del tipo Person
-            //En este caso, se suma la edad de la persona actual a la variable ageSum
-            public void Visit(Person person)
-            {
-                ageSum += person.Edad;
-            }
-            public void Visit(Node node)
-            {
-
-            }
-        }
     }
 }
