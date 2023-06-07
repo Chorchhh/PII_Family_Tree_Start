@@ -1,14 +1,11 @@
 namespace Library
 {
-    public class BiggestChildVisitor : IPersonVisitor
+    public class BiggestChildVisitor : PersonVisitor
     {
         private int maxSize;
         private string biggestChild;
-        public void Visit(Person person)
-        {
-            
-        }
-        public void Visit(Node node)
+       
+        public override void Visit(Node node)
         {
             if (node.Children.Count == 0)
             {
@@ -18,6 +15,10 @@ namespace Library
                     biggestChild = node.Person.Nombre; 
                 }
             }
+        }
+        public override void Visit(Person person)
+        {
+                
         }
         public string GetBiggestChild()
         {

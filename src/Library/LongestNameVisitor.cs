@@ -1,11 +1,11 @@
 namespace Library
 {
-    public class LongestNameVisitor : IPersonVisitor
+    public class LongestNameVisitor : PersonVisitor
     {
         private int maxLength;
         private string longestName;
 
-        public void Visit(Person person)
+        public override void Visit(Person person)
         {
             if (person.Nombre.Length > maxLength)
             {
@@ -13,7 +13,7 @@ namespace Library
                 longestName = person.Nombre;
             }
         }
-        public void Visit(Node node)
+        public override void Visit(Node node)
         {
             
         }

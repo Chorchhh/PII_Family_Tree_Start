@@ -12,7 +12,7 @@ namespace Library
             Nombre = nombre;
             Edad = edad;
         }
-        public void Accept(IPersonVisitor visitor)
+        public void Accept(PersonVisitor visitor)
         {
             visitor.Visit(this);
         }

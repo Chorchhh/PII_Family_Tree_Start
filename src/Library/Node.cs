@@ -30,7 +30,7 @@ namespace Library
         {
             this.children.Add(child);
         }
-        public void Accept(IPersonVisitor visitor)
+        public void Accept(PersonVisitor visitor)
         {
             person.Accept(visitor);
 
